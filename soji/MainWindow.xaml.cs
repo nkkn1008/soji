@@ -35,7 +35,7 @@ namespace soji
             string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
             
             if (files == null) return;
-            configPath.Text = files[0];
+            (sender as TextBox).Text = files[0];
         }
 
         private void TextBox_DragOver(object sender, DragEventArgs e)
