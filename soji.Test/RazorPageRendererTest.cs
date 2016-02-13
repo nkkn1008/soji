@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using soji.Core;
 
 namespace soji.Test
 {
     public class RazorPageRendererTest
     {
         [Fact]
-        public void AddTest()
+        public void RenderTest()
         {
-            var test = new 
-            Assert.Equal(test.add(5, 4), 9);
-        }
-    
+            var renderer = new RazorPageRenderer();
+            Assert.Equal("Render Test", renderer.Render());
+        }    
     }
 }
