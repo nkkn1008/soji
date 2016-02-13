@@ -14,7 +14,7 @@ namespace soji.Test
         public void RenderTest()
         {
             var renderer = new RazorPageRenderer();
-            Assert.Equal("Render Test", renderer.Render());
+            Assert.Equal("Hello RazorEngine!!", renderer.Render());
         }    
     }
 }
