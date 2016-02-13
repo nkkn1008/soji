@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:soji"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    <Grid x:Name="DragAndDrop">
         <Label x:Name="label" Content="Config" HorizontalAlignment="Left" Margin="71,68,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="text" HorizontalAlignment="Left" Height="23" Margin="139,71,0,0" TextWrapping="Wrap" Text="Coinfig file path" VerticalAlignment="Top" Width="297"/>
+        <TextBox x:Name="configPath" HorizontalAlignment="Left" Height="23" Margin="139,71,0,0" TextWrapping="Wrap" Text="Coinfig file path" VerticalAlignment="Top" Width="297" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" PreviewDragOver="TextBox_DragOver"/>
 
     </Grid>
 </Window>
