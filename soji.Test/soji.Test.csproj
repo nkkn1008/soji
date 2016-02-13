@@ -59,17 +59,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="RazorPageRendererTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\soji\soji.csproj">
-      <Project>{a558cff0-c1e0-4471-adee-57667ac0a542}</Project>
-      <Name>soji</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\soji.Core\soji.Core.csproj">
+      <Project>{87a12466-64e9-4a4f-ac3e-2c1ac5264d71}</Project>
+      <Name>soji.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
