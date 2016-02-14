@@ -13,8 +13,17 @@ namespace soji.Test
         [Fact]
         public void RenderTest()
         {
-            var renderer = new RazorPageRenderer();
-            Assert.Equal("Hello RazorEngine!!", renderer.Render());
+            string template = @"Series code is @Model.Series.Code";
+            Series series = new Series { Code = "37" };
+            Target target = new Target { Name = "TestName" };
+            List<Target> targets = new List<Target>();
+            targets.Add(target);
+
+            RazorModel model = new RazorModel();
+            model.Series = series;
+            model.Targets = targets;
+            var renderer = new RazorPageRenderer(template, model);
+            Assert.Equal("Series code is 37", renderer.Render());
         }    
     }
 }
