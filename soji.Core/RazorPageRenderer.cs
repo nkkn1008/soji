@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RazorEngine;
 using RazorEngine.Templating;
+using RazorEngine.Configuration;
 
 namespace soji.Core
 {
@@ -20,8 +21,14 @@ namespace soji.Core
         }
 
         public string Render()
-        {                                               
-            return Engine.Razor.RunCompile(this.template, "templatekey", null, this.model);
+        {
+            var config = new TemplateServiceConfiguration();
+            var rendered = "";
+            using (var service = RazorEngineService.Create(config))
+            {
+                rendered = service.RunCompile(this.template, "templateKey", null, this.model); 
+            }
+            return rendered;
         }
     }
 
