@@ -10,7 +10,7 @@ using System.IO;
 
 namespace soji.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ViewModelBase
     {
         public RelayCommand RenderCommand { get; set; }
         
