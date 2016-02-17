@@ -34,9 +34,26 @@ namespace soji.ViewModel
             model.Series.Code = "37";
             var renderer = new RazorPageRenderer(template, model);
             string result = renderer.Render();
-            using (var writer = new StreamWriter(@"C:\work\test.txt", false, System.Text.Encoding.UTF8))
+            using (var writer = new StreamWriter(_OutputFilePath, false, System.Text.Encoding.UTF8))
             {
                 writer.WriteLine(result);
+            }
+        }
+
+        string _OutputFilePath;
+        public string OutputFilePath
+        {
+            get
+            {
+                return _OutputFilePath;
+            }
+            set
+            {
+                if (_OutputFilePath != value)
+                {
+                    _OutputFilePath = value;
+                    RaisePropertyChanged("OutputFilePath");
+                }
             }
         }
     }
