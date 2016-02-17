@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using soji.ViewModel;
 
 namespace soji
 {
@@ -23,6 +24,8 @@ namespace soji
         public MainWindow()
         {
             InitializeComponent();
+            var p = new MainWindowViewModel();
+            this.DataContext = p;
         }
 
         private void TextBox_DragEnter(object sender, DragEventArgs e)
