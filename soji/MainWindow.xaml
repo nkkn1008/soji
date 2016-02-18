@@ -11,9 +11,9 @@
         <Label x:Name="label" Content="Config file Path:" HorizontalAlignment="Left" Margin="42,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.325,0.659"/>
         <TextBox x:Name="configPath" HorizontalAlignment="Left" Height="23" Margin="162,71,0,0" TextWrapping="Wrap" Text="Please drop your file" VerticalAlignment="Top" Width="588" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" PreviewDragOver="TextBox_DragOver"/>
         <Label x:Name="template" Content="Template file Path:" HorizontalAlignment="Left" Margin="42,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.325,0.659"/>
-        <TextBox x:Name="templatePath" HorizontalAlignment="Left" Height="23" Margin="162,120,0,0" TextWrapping="Wrap" Text="Please drop your file" VerticalAlignment="Top" Width="588" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" PreviewDragOver="TextBox_DragOver"/>
+        <TextBox x:Name="templatePath" HorizontalAlignment="Left" Height="23" Margin="162,120,0,0" TextWrapping="Wrap" Text="{Binding TemplateFilePath, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="588" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" PreviewDragOver="TextBox_DragOver"/>
         <Label x:Name="generatedfile" Content="Generated file Path:" HorizontalAlignment="Left" Margin="42,162,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.325,0.659"/>
-        <TextBox x:Name="generatedPath" HorizontalAlignment="Left" Height="23" Margin="162,165,0,0" TextWrapping="Wrap" Text="{Binding OutputFilePath}" VerticalAlignment="Top" Width="588" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" PreviewDragOver="TextBox_DragOver"/>
+        <TextBox x:Name="generatedPath" HorizontalAlignment="Left" Height="23" Margin="162,165,0,0" TextWrapping="Wrap" Text="{Binding OutputFilePath, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="588" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" PreviewDragOver="TextBox_DragOver"/>
         <Button x:Name="button" Content="Render!!" Command="{Binding RenderCommand}" HorizontalAlignment="Left" Margin="629,257,0,0" VerticalAlignment="Top" Width="104" Height="26"/>
 
     </Grid>
