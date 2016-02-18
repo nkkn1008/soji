@@ -29,8 +29,8 @@ namespace soji.ViewModel
             RazorModel model = new RazorModel();
             model.Series = series;
             model.Targets = targets;
-
-            string template = @"Series code is @Model.Series.Code";
+            
+            var template = File.ReadAllText(_TemplateFilePath);
             model.Series.Code = "37";
             var renderer = new RazorPageRenderer(template, model);
             string result = renderer.Render();
@@ -60,6 +60,23 @@ namespace soji.ViewModel
                 {
                     _OutputFilePath = value;
                     RaisePropertyChanged("OutputFilePath");
+                }
+            }
+        }
+
+        string _TemplateFilePath;
+        public string TemplateFilePath
+        {
+            get
+            {
+                return _TemplateFilePath;
+            }
+            set
+            {
+                if (_TemplateFilePath != value)
+                {
+                    _TemplateFilePath = value;
+                    RaisePropertyChanged("TemplateFilePath");
                 }
             }
         }
