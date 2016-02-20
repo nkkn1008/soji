@@ -8,12 +8,14 @@ using soji.Core;
 
 namespace soji.Test
 {
-    public class ModelConfiguratorTest
+    public class ModelConfiguratorTest : IDisposable
     {
-        [Fact]
-        public void LoadSeriesInfoToRazorModel()
+        public void Dispose() { }
+                           
+        private string json;
+        public ModelConfiguratorTest()
         {
-            string json = @"{
+            json = @"{
   'Targets':
   [
       {
@@ -29,6 +31,11 @@ namespace soji.Test
     'Code': '9999'
   }
         }";
+        }
+
+        [Fact]
+        public void LoadSeriesInfoToRazorModel()
+        {
             ModelConfigurator configurator = new ModelConfigurator(json);
             RazorModel model = configurator.Run();
             Assert.Equal("9999", model.Series.Code);
@@ -36,23 +43,7 @@ namespace soji.Test
 
         [Fact]
         public void LoadTargetInfoToRazorModel()
-        {
-            string json = @"{
-  'Targets':
-  [
-      {
-         'Name': 'Target-A'
-      }
-       ,
-      {
-          'Name': 'Target-B'
-      }
-  ],
-  'Series': 
-  {                
-    'Code': '9999'
-  }
-        }";
+        { 
             ModelConfigurator configurator = new ModelConfigurator(json);
             RazorModel model = configurator.Run();
             Assert.Equal("Target-A", model.Targets[0].Name);
