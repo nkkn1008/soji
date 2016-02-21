@@ -7,16 +7,24 @@ using soji.Helpers;
 using System.Windows;
 using soji.Core;
 using System.IO;
+using Reactive.Bindings;
+using System.Reactive.Linq;
 
 namespace soji.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public RelayCommand RenderCommand { get; set; }
-        
+        //public RelayCommand RenderCommand { get; set; }
+        public ReactiveCommand RenderCommand { get; set; }
+
         public MainWindowViewModel()
         {
-            RenderCommand = new RelayCommand(RenderPage);
+            //RenderCommand = new RelayCommand(RenderPage);
+            this.ReactiveOutputFilePath = new ReactiveProperty<string>("");
+            this.RenderCommand = this.ReactiveOutputFilePath
+                .Select(x => !string.IsNullOrWhiteSpace(x)) // ReactiveOutputFilePathが空でない
+                .ToReactiveCommand(); 
+            this.RenderCommand.Subscribe(_ => this.ReactiveOutputFilePath.Value = "");
         }
 
         void RenderPage(object selectedItem)
@@ -57,6 +65,8 @@ namespace soji.ViewModel
                 }
             }
         }
+
+        public ReactiveProperty<string> ReactiveOutputFilePath { get; private set; }
 
         string _TemplateFilePath;
         public string TemplateFilePath
