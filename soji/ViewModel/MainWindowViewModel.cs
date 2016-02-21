@@ -21,17 +21,11 @@ namespace soji.ViewModel
 
         void RenderPage(object selectedItem)
         {
-            Series series = new Series();
-            Target target1 = new Target { Name = "TargetA" };            
-            List<Target> targets = new List<Target>();
-            targets.Add(target1);
-
-            RazorModel model = new RazorModel();
-            model.Series = series;
-            model.Targets = targets;
-            
+            var json = File.ReadAllText(_ConfigFilePath);
+            ModelConfigurator configurator = new ModelConfigurator(json);
+            var model = configurator.Run();
+           
             var template = File.ReadAllText(_TemplateFilePath);
-            model.Series.Code = "37";
             var renderer = new RazorPageRenderer(template, model);
             string result = renderer.Render();
             try
@@ -77,6 +71,23 @@ namespace soji.ViewModel
                 {
                     _TemplateFilePath = value;
                     RaisePropertyChanged("TemplateFilePath");
+                }
+            }
+        }
+
+        string _ConfigFilePath;
+        public string ConfigFilePath
+        {
+            get
+            {
+                return _ConfigFilePath;
+            }
+            set
+            {
+                if (_ConfigFilePath != value)
+                {
+                    _ConfigFilePath = value;
+                    RaisePropertyChanged("ConfigFilePath");
                 }
             }
         }
