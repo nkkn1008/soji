@@ -23,11 +23,11 @@ namespace soji.ViewModel
             this.ReactiveOutputFilePath = new ReactiveProperty<string>("");
             this.RenderCommand = this.ReactiveOutputFilePath
                 .Select(x => !string.IsNullOrWhiteSpace(x)) // ReactiveOutputFilePathが空でない
-                .ToReactiveCommand(); 
-            this.RenderCommand.Subscribe(_ => this.ReactiveOutputFilePath.Value = "");
+                .ToReactiveCommand();
+            this.RenderCommand.Subscribe(_ => RenderPage());
         }
 
-        void RenderPage(object selectedItem)
+        void RenderPage()
         {
             var json = File.ReadAllText(_ConfigFilePath);
             ModelConfigurator configurator = new ModelConfigurator(json);
@@ -38,7 +38,7 @@ namespace soji.ViewModel
             string result = renderer.Render();
             try
             {
-                using (var writer = new StreamWriter(_OutputFilePath, false, System.Text.Encoding.UTF8))
+                using (var writer = new StreamWriter(ReactiveOutputFilePath.Value, false, System.Text.Encoding.UTF8))
                 {
                     writer.WriteLine(result);
                 }
