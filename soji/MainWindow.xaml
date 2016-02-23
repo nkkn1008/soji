@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:local="clr-namespace:soji"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="777.589">
+        Title="MainWindow" Height="350" Width="777.589"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        >
     
     <Grid x:Name="DragAndDrop">
         <Label x:Name="label" Content="Config file Path:" HorizontalAlignment="Left" Margin="42,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.325,0.659"/>
