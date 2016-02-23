@@ -14,31 +14,27 @@ namespace soji.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        //public RelayCommand RenderCommand { get; set; }
         public ReactiveCommand RenderCommand { get; set; }
-
         public MainWindowViewModel()
         {
-            //RenderCommand = new RelayCommand(RenderPage);
-            this.ReactiveOutputFilePath = new ReactiveProperty<string>("");
-            this.RenderCommand = this.ReactiveOutputFilePath
-                .Select(x => !string.IsNullOrWhiteSpace(x)) // ReactiveOutputFilePathが空でない
+            RenderCommand = Observable.CombineLatest(OutputFilePath, TemplateFilePath, ConfigFilePath,
+                (output, template, config) => !string.IsNullOrEmpty(output) && !string.IsNullOrEmpty(template) && !string.IsNullOrEmpty(config))
                 .ToReactiveCommand();
             this.RenderCommand.Subscribe(_ => RenderPage());
         }
 
         void RenderPage()
         {
-            var json = File.ReadAllText(_ConfigFilePath);
+            var json = File.ReadAllText(ConfigFilePath.Value);
             ModelConfigurator configurator = new ModelConfigurator(json);
             var model = configurator.Run();
            
-            var template = File.ReadAllText(_TemplateFilePath);
+            var template = File.ReadAllText(TemplateFilePath.Value);
             var renderer = new RazorPageRenderer(template, model);
             string result = renderer.Render();
             try
             {
-                using (var writer = new StreamWriter(ReactiveOutputFilePath.Value, false, System.Text.Encoding.UTF8))
+                using (var writer = new StreamWriter(OutputFilePath.Value, false, System.Text.Encoding.UTF8))
                 {
                     writer.WriteLine(result);
                 }
@@ -49,57 +45,9 @@ namespace soji.ViewModel
             }
         }
 
-        string _OutputFilePath;
-        public string OutputFilePath
-        {
-            get
-            {
-                return _OutputFilePath;
-            }
-            set
-            {
-                if (_OutputFilePath != value)
-                {
-                    _OutputFilePath = value;
-                    RaisePropertyChanged("OutputFilePath");
-                }
-            }
-        }
+        public ReactiveProperty<string> OutputFilePath { get; private set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<string> TemplateFilePath { get; private set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<string> ConfigFilePath { get; private set; } = new ReactiveProperty<string>();
 
-        public ReactiveProperty<string> ReactiveOutputFilePath { get; private set; }
-
-        string _TemplateFilePath;
-        public string TemplateFilePath
-        {
-            get
-            {
-                return _TemplateFilePath;
-            }
-            set
-            {
-                if (_TemplateFilePath != value)
-                {
-                    _TemplateFilePath = value;
-                    RaisePropertyChanged("TemplateFilePath");
-                }
-            }
-        }
-
-        string _ConfigFilePath;
-        public string ConfigFilePath
-        {
-            get
-            {
-                return _ConfigFilePath;
-            }
-            set
-            {
-                if (_ConfigFilePath != value)
-                {
-                    _ConfigFilePath = value;
-                    RaisePropertyChanged("ConfigFilePath");
-                }
-            }
-        }
     }
 }
