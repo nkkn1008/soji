@@ -31,7 +31,16 @@ namespace soji.ViewModel
            
             var template = File.ReadAllText(TemplateFilePath.Value);
             var renderer = new RazorPageRenderer(template, model);
-            string result = renderer.Render();
+            string result;
+            try
+            {
+                result = renderer.Render();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
             try
             {
                 using (var writer = new StreamWriter(OutputFilePath.Value, false, System.Text.Encoding.UTF8))
